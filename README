@@ -25,6 +25,8 @@ If your not running the server ask your server admin to make the public version 
 but first check if there not already one.
 http://mumble.sourceforge.net/Channel_Viewer_Protocol
 
+NOTE that if u have a big server loading could freeze the browser for a second or more.
+
 ONE YOUR WEBSITE
 
 inlude the requred javascript file in given order on your page you want to display the viewer
@@ -40,7 +42,8 @@ for a bit styling u also need to include the css file style.css.
 
 the following could should make the viewer apear in a div where id="mumbleviewerdiv" make sure it exists (<div id="mumbleviewerdiv"></div>):
 
-!!!Make sure u change the url http://api.rko.nu/mumble.php?callback=? to where our JSON Channel Viewer Protocol is located
+!!!Make sure u change the url http://api.rko.nu/mumble.php?callback=? to where our JSON Channel Viewer Protocol is located and 
+!!!make sure the callback=? is at the end of the of the url (if u want to add a port http://api.rko.nu/mumble.php?port=64738&callback=?)
 
 <script type='text/javascript'>
 $(document).ready(function()
