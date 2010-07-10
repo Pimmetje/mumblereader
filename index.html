@@ -16,8 +16,8 @@ $(document).ready(function()
 });
 
 var mr = new mumbleReader('http://api.rko.nu/mumble.php?callback=?', 'mum0'); //init the object
-mr.settooltip(false); //disable the tooltip
-//mr.setlenght(5);
+//mr.settooltip(false); //disable the tooltip
+mr.setlenght(5);
 function load_mum() {
   mr.start(); //This will reload the viewer
 }

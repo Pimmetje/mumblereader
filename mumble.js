@@ -200,7 +200,7 @@ function mumbleReader(jsonurl, div) {
    * @return the renderd data
    */
   var root = function (data) {
-    var tip = "IP:"+"<br />Uptime:";
+    var tip = "Name:"+data.name+"<br />Uptime:"+parseTime(data.uptime);
     var d = "<div class=\"mumstatus\">";
     var src = (data.x_connecturl != null) ? data.x_connecturl : '';
     d += "<a href=\""+src+"\" tooltip=\""+ tip +"\">"+img('mumble.png', '')+" Root: </a><br />";
