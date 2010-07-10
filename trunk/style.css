@@ -1,0 +1,80 @@
+.mumble_server {
+    text-align: left;
+}
+.mumble_line {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    white-space: nowrap;
+    font-family: Tahoma, Helvetica;
+    font-size: 12px;
+    line-height: 16px;
+    vertical-align: top;
+}
+.mumble_line img {
+    vertical-align: top;
+}
+mumble_server * img {
+    border-style: none;
+}
+mumble_server * a {
+    white-space: nowrap;
+    font-family: Tahoma, Helvetica;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.mumstatus{
+	width: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.mumstatus, .mumstatus *{
+	font-family: Verdana;
+	font-size: 10px;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	white-space:nowrap;
+}
+.mumstatuserror{
+	font-family: Verdana;
+	font-size: 10px;
+	color: red;
+}
+.mumstatus .mumstatusNickname{
+	border-bottom: 1px solid #aaa;
+	padding-bottom: 2px;
+	margin-bottom: 2px;
+}
+.mumstatus .mumstatusServerName{
+
+}
+.mumstatus input{
+	width: 135px;
+	height: 18px;
+}
+.mumstatus .mumstatusItem{
+	margin-left: 15px;
+	clear: both;
+}
+.mumstatus .mumstatusLabel{
+	float: left;
+}
+.mumstatus .mumstatusFlags{
+	position: absolute;
+	right: 0;
+	clear: right;
+}
+.mumstatus a{
+	text-decoration: none;
+	color: #333;
+}
+.mumstatus a:hover{
+	text-decoration: none;
+}
+
+.mumstatus img{
+	margin-right: 2px;
+	border: 0;
+}

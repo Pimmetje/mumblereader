@@ -1,0 +1,92 @@
+Author:
+
+Pimmetje
+website http://mumble.rko.nu http://code.google.com/p/mumblereader/
+Email Pimmetje (at) gmail (dot) com
+(c) 2010 Pimmetje (at) gmail (dot) com
+
+
+LICENCE:
+
+There are two parts in this project
+Javascript:
+See COPYING.LESSER
+The PHP code is based on mumble viewer project (GPL)
+The icons are also from the mumble mumble viewer project (GPL)
+
+
+HOW TO USE:
+
+If u there's no JSONP Channel Viewer Protocol for your server than the  php code should be placed 
+on the same server as murmur server instance to create one. Note you also need PHP-ICE. More information in the mumble wiki.
+Place the mumble.php on a public place and MumbleReader.class.php somethere in your include path.
+
+If your not running the server ask your server admin to make the public version of the json(p) Channel Viewer Protocol 
+but first check if there not already one.
+http://mumble.sourceforge.net/Channel_Viewer_Protocol
+
+ONE YOUR WEBSITE
+
+inlude the requred javascript file in given order on your page you want to display the viewer
+ * Jquery (tested jquery-1.3.2.min.js) 
+   http://jquery.com/
+ * qTip (tested jquery.qtip-1.0.0-rc3.min.js)
+   http://craigsworks.com/projects/qtip/
+ * mumble viewer js file (mumble.js included in this package)
+   http://mumble.rko.nu/
+
+for a bit styling u also need to include the css file style.css.
+<link rel="stylesheet" type="text/css" href="http://yoursite/path/to/style.css" />
+
+the following could should make the viewer apear in a div where id="mumbleviewerdiv" make sure it exists (<div id="mumbleviewerdiv"></div>):
+
+!!!Make sure u change the url http://api.rko.nu/mumble.php?callback=? to where our JSON Channel Viewer Protocol is located
+
+<script type='text/javascript'>
+$(document).ready(function()
+{
+  load_mum();
+  window.setInterval("load_mum();", 30000);
+});
+
+var mr = new mumbleReader('http://api.rko.nu/mumble.php?callback=?', 'mumbleviewerdiv');
+//mr.settooltip(false);
+function load_mum() {
+  mr.start();
+}
+</script>
+
+
+OPTIONS:
+
+There some options to change the default behavor of the viewer. 
+tooltip (bool) will disable qtip
+imgpath (string) the place to use to load the icons
+length (int) the max lenght a name is allowed to have before it's cut off. 
+  NOTE: that the full name is displayed in the tip if it's enabled
+
+EXAMPLE
+
+<script type='text/javascript'>
+$(document).ready(function()
+{ 
+  load_mum(); //This will to the loading the first time
+  window.setInterval("load_mum();", 30000); //This will load the viewer every 30 seconds
+});
+
+var mr = new mumbleReader('http://api.rko.nu/mumble.php?callback=?', 'mumbleviewerdiv'); //init the object
+mr.settooltip(false); //disable the tooltip
+mr.setlenght(5);
+function load_mum() {
+  mr.start(); //This will reload the viewer
+}
+</script>
+
+
+will disable the tooltips and will cut all names off after 5 chars.
+
+i want to put other options in there lateron depending on feedback i get.
+
+if u have any comment feel free to send me a email in english or dutch. Make sure u mention thats about the mumble viewer. Or make a Issu on google code
+
+http://code.google.com/p/mumblereader/
