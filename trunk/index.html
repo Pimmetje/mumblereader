@@ -17,8 +17,8 @@ $(document).ready(function()
 
 var mr = new mumbleReader('http://shotgunfun.de/mumble/1.json?callback=?', 'mum0'); //init the object
 //mr.settooltip(false); //disable the tooltip
-mr.setuseservername(true);
-//mr.setlenght(5);
+mr.setuseservername(true); //Use the server name as name of the root channel
+//mr.setlenght(5); //Set the max lenght for displaying
 function load_mum() {
   mr.start(); //This will reload the viewer
 }
