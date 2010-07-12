@@ -205,7 +205,7 @@ function mumbleReader(jsonurl, div) {
    * @return the renderd data
    */
   var root = function (data) {
-    var tip = "Name:"+data.name+"<br />Uptime:"+parseTime(data.uptime);
+    var tip = "Name:"+data.name+"<br />Uptime:"+parseTime(data.x_uptime);
     var d = "<div class=\"mumstatus\">";
     var src = (data.x_connecturl != null) ? data.x_connecturl : '';
     var name = "Root";

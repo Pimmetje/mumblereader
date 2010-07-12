@@ -117,7 +117,7 @@ class mumblereader {
         $server['root'] = $this->loadChannel($tree);
         $server['name'] = $servername;
         $server['id'] = $tree->c->id;
-        $server['uptime'] = $uptime;
+        $server['x_uptime'] = $uptime;
         $server['x_connecturl'] = "conurl";
         return $server;
       }
