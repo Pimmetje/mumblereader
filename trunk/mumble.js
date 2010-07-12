@@ -30,10 +30,15 @@ function mumbleReader(jsonurl, div) {
   var ltooltip = "true";
   var limgpath = "http://cdn.rko.nu/mumble/";
   var llenght = 20;
+  var luseservername = false;
   
   /**************************************************************
    * Mumble Reader functions
    */
+  this.setuseservername = function (val) {
+    luseservername = val;
+  }
+
   this.settooltip = function (val) {
     ltooltip = val;
   }
@@ -203,7 +208,9 @@ function mumbleReader(jsonurl, div) {
     var tip = "Name:"+data.name+"<br />Uptime:"+parseTime(data.uptime);
     var d = "<div class=\"mumstatus\">";
     var src = (data.x_connecturl != null) ? data.x_connecturl : '';
-    d += "<a href=\""+src+"\" tooltip=\""+ tip +"\">"+img('mumble.png', '')+" Root: </a><br />";
+    var name = "Root";
+    if(luseservername) name = data.name;
+    d += "<a href=\""+src+"\" tooltip=\""+ tip +"\">"+img('mumble.png', '')+" "+name+": </a><br />";
     if(data.root.channels != null) {
       d += channels(data.root.channels);
     }
