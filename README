@@ -88,8 +88,13 @@ function load_mum() {
 
 will disable the tooltips and will cut all names off after 5 chars.
 
-i want to put other options in there lateron depending on feedback i get.
+For a working example see index.html
 
-if u have any comment feel free to send me a email in english or dutch. Make sure u mention thats about the mumble viewer. Or make a Issu on google code
+FEEDBACK
+
+i want to put other options in there lateron depending on feedback i get / time i have.
+
+if u have any comment/sugestions/code feel free to send me a email in english or dutch. Make sure u mention thats it is 
+about the mumble viewer. Or make a Issu on google code project page.
 
 http://code.google.com/p/mumblereader/
