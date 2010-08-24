@@ -57,6 +57,7 @@ class mumblereader {
     $channel['channels'] = array();
     $channel['users']    = array();
     $channel['links']    = array();
+    $channel['position'] = $iceChannel->c->position;
     foreach ($iceChannel->children as $_channel) {
       $channel['channels'][] = $this->loadChannel($_channel);
     }
