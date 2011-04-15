@@ -25,10 +25,37 @@ class mumblereader {
   
   private $port;
   private $ice;
+  private $id = null;
+  private $server;
+  private $config;
 
   public function mumblereader($port) {
     $this->ice = $this->init_ICE();
     $this->port = $port;
+    $this->config = $this->ice->getDefaultConf();
+  }
+
+  public function setId($id) {
+      $this->id = $id;
+  }
+
+  /**
+   * Load server in the class variable
+   */
+  private function loadServer() {
+      if($this->id !== null) {
+          $this->server = $this->ice->getServer($this->id);
+          return true;
+      } else {
+          foreach ($servers as $id => $iceServer) {
+            if($iceServer->getConf('port') == $this->port) {
+              $this->server = $iceServer;
+              return true;
+            }
+          }
+          $this->server = null;
+          return false;
+      }
   }
 
   /**
@@ -106,24 +133,19 @@ class mumblereader {
    * @return array of the server
    */
   private function loadData() {
-    $servers    = $this->ice->getBootedServers();
-    $default    = $this->ice->getDefaultConf();
-
-    foreach ($servers as $id => $iceServer) {
-      if($iceServer->getConf('port') == $this->port) {
-        $port       = $iceServer->getConf('port');
-        $servername = $iceServer->getConf("registername");
-        $tree       = $iceServer->getTree();
-        $uptime       = $iceServer->getUptime();
-        $server['root'] = $this->loadChannel($tree);
-        $server['name'] = $servername;
-        $server['id'] = $tree->c->id;
-        $server['x_uptime'] = $uptime;
-        $server['x_connecturl'] = "conurl";
-        return $server;
-      }
+    if(!$this->loadServer()) {
+        return array('error' => 'Error loading server');
     }
-    return null;
+    $port       = $this->server->getConf('port');
+    $servername = $this->server->getConf("registername");
+    $tree       = $this->server->getTree();
+    $uptime       = $this->server->getUptime();
+    $server['root'] = $this->loadChannel($tree);
+    $server['name'] = $servername;
+    $server['id'] = $tree->c->id;
+    $server['x_uptime'] = $uptime;
+    $server['x_connecturl'] = "conurl";
+    return $server;
   }
 
   /**
