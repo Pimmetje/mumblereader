@@ -3,8 +3,12 @@
 require('MumbleReader.class.php');
 // GET
 $port = (isset($_GET['port']))?filter_input(INPUT_GET, 'port', FILTER_VALIDATE_INT):0;
+$id = (isset($_GET['id']))?filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT):0;
 
 $mReader = new MumbleReader($port);
+if($id > 0) {
+    $mReader->setId($id);
+}
 
 //Make sure page is not cached
 header ("Expires: Thu, 17 May 2001 10:17:17 GMT");    // Date in the past
