@@ -26,27 +26,28 @@ class mumblereader {
   private $port;
   private $ice;
   private $id = null;
+  private $useid = false;
   private $server;
-  private $config;
-
+  
   public function mumblereader($port) {
     $this->ice = $this->init_ICE();
     $this->port = $port;
-    $this->config = $this->ice->getDefaultConf();
   }
 
   public function setId($id) {
       $this->id = $id;
+      $this->useid = true;
   }
 
   /**
    * Load server in the class variable
    */
   private function loadServer() {
-      if($this->id !== null) {
+      if($this->useid) {
           $this->server = $this->ice->getServer($this->id);
           return true;
       } else {
+          $servers = $this->ice->getBootedServers();
           foreach ($servers as $id => $iceServer) {
             if($iceServer->getConf('port') == $this->port) {
               $this->server = $iceServer;
