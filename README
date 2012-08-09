@@ -52,7 +52,7 @@ $(document).ready(function()
   window.setInterval("load_mum();", 30000);
 });
 
-var mr = new mumbleReader('http://api.rko.nu/mumble.php?callback=?', 'mumbleviewerdiv');
+var mr = new mumbleReader('http://api.rko.nu/mumbleexample.php?callback=? 'mumbleviewerdiv');
 //mr.settooltip(false);
 function load_mum() {
   mr.start();
@@ -68,7 +68,7 @@ imgpath (string) the place to use to load the icons
 length (int) the max lenght a name is allowed to have before it's cut off. 
   NOTE: that the full name is displayed in the tip if it's enabled
 
-EXAMPLE
+BASIC EXAMPLE
 
 <script type='text/javascript'>
 $(document).ready(function()
@@ -77,7 +77,7 @@ $(document).ready(function()
   window.setInterval("load_mum();", 30000); //This will load the viewer every 30 seconds
 });
 
-var mr = new mumbleReader('http://api.rko.nu/mumble.php?callback=?', 'mumbleviewerdiv'); //init the object
+var mr = new mumbleReader('http://api.rko.nu/mumbleexample.php?callback=?', 'mumbleviewerdiv'); //init the object
 mr.settooltip(false); //disable the tooltip
 mr.setlenght(5);
 function load_mum() {
