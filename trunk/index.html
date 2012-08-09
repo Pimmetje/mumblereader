@@ -7,7 +7,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="mumble.ico" />
     <script type="text/javascript" src="http://cdn.rko.nu/jquery-qtip/jquery-1.3.2.min.js"></script>
     <script type="text/javascript" src="http://cdn.rko.nu/jquery-qtip/jquery.qtip-1.0.0-rc3.min.js"></script>
-    <script type="text/javascript" src="jquery.mumblereader.js"></script>
+    <script type="text/javascript" src="jquery.mumblereader.min.js"></script>
 <script type='text/javascript'>
 $(document).ready(function()
 { 
@@ -15,10 +15,12 @@ $(document).ready(function()
   window.setInterval("load_mum();", 30000); //This will load the viewer every 30 seconds
 });
 
-var mr = new mumbleReader('http://shotgunfun.de/mumble/1.json?callback=?', 'mum0'); //init the object
-//mr.settooltip(false); //disable the tooltip
+var mr = new mumbleReader('http://api.rko.nu/mumbleexample.php?callback=?', 'mum0'); //init the object
+mr.settooltip(true); //to disable the tooltip change true to false
 mr.setuseservername(true); //Use the server name as name of the root channel
-//mr.setlenght(5); //Set the max lenght for displaying
+mr.setlenght(50); //Set the max lenght for displaying or remove this line to have no limit
+mr.setimgpath('icons/'); //Set the image path the local subdirectory MAKE SURE THAT U UPLOAD THE ICONS
+mr.setuseservername(true); //Do not show root in the Root channel but the given servername
 function load_mum() {
   mr.start(); //This will reload the viewer
 }
@@ -28,8 +30,6 @@ function load_mum() {
     <table>
       <tr>
         <td VALIGN="top"><div id="mum0"></div></td>
-        <td VALIGN="top"><div id="mum1"></div></td>
-        <td VALIGN="top"><div id="mum2"></div></td>
       </tr>
     </table>
   </body>
