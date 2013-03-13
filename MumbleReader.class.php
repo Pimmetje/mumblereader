@@ -20,43 +20,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+mumblereader::$useNewAPI = version_compare(Ice_stringVersion(), '3.4', '>=');
+if(mumblereader::$useNewAPI) {
+    //This is because of a bug in ICE. It's wont work if a method includes those files. This should happen in init ice if the bug is fixed in a later version
+    require_once 'Ice.php';
+    require_once 'Murmur.php';
+}
 class mumblereader {
-  
+  public static $useNewAPI;
   private $port;
   private $ice;
-  private $id = null;
-  private $useid = false;
-  private $server;
-  
+
   public function mumblereader($port) {
-    $this->ice = $this->init_ICE();
+    $this->ice  = $this->init_ICE();
     $this->port = $port;
-  }
-
-  public function setId($id) {
-      $this->id = $id;
-      $this->useid = true;
-  }
-
-  /**
-   * Load server in the class variable
-   */
-  private function loadServer() {
-      if($this->useid) {
-          $this->server = $this->ice->getServer($this->id);
-          return true;
-      } else {
-          $servers = $this->ice->getBootedServers();
-          foreach ($servers as $id => $iceServer) {
-            if($iceServer->getConf('port') == $this->port) {
-              $this->server = $iceServer;
-              return true;
-            }
-          }
-          $this->server = null;
-          return false;
-      }
   }
 
   /**
@@ -65,10 +42,15 @@ class mumblereader {
    * @return ice object
    */
   private function init_ICE() {
-    global $ICE;
-    Ice_loadProfile();
-    $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
-    return $base->ice_checkedCast("::Murmur::Meta");
+    if(!self::$useNewAPI) {
+        global $ICE;
+        Ice_loadProfile();
+        $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
+        return $base->ice_checkedCast("::Murmur::Meta");
+    } else {
+        $ICE = Ice_initialize();
+        return Murmur_MetaPrxHelper::checkedCast($ICE->stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'));
+    }
   }
 
   /**
@@ -85,7 +67,6 @@ class mumblereader {
     $channel['channels'] = array();
     $channel['users']    = array();
     $channel['links']    = array();
-    $channel['position'] = $iceChannel->c->position;
     foreach ($iceChannel->children as $_channel) {
       $channel['channels'][] = $this->loadChannel($_channel);
     }
@@ -134,19 +115,24 @@ class mumblereader {
    * @return array of the server
    */
   private function loadData() {
-    if(!$this->loadServer()) {
-        return array('error' => 'Error loading server');
+    $servers    = $this->ice->getBootedServers();
+    $default    = $this->ice->getDefaultConf();
+
+    foreach ($servers as $id => $iceServer) {
+      if($iceServer->getConf('port') == $this->port) {
+        $port       = $iceServer->getConf('port');
+        $servername = $iceServer->getConf("registername");
+        $tree       = $iceServer->getTree();
+        $uptime       = $iceServer->getUptime();
+        $server['root'] = $this->loadChannel($tree);
+        $server['name'] = $servername;
+        $server['id'] = $tree->c->id;
+        $server['uptime'] = $uptime;
+        $server['x_connecturl'] = "conurl";
+        return $server;
+      }
     }
-    $port       = $this->server->getConf('port');
-    $servername = $this->server->getConf("registername");
-    $tree       = $this->server->getTree();
-    $uptime       = $this->server->getUptime();
-    $server['root'] = $this->loadChannel($tree);
-    $server['name'] = $servername;
-    $server['id'] = $tree->c->id;
-    $server['x_uptime'] = $uptime;
-    $server['x_connecturl'] = "conurl";
-    return $server;
+    return null;
   }
 
   /**
