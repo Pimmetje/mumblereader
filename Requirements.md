@@ -1,0 +1,2 @@
+# Requirements #
+Mumblereader is a [jQuery](http://jquery.com/) library that allows anyone to add a dynamic loading view from there mumble server on there page. All they need is website to add the viewer (you should be able to modify the source) on and somehow a place where they can get the [CVP](http://mumble.sourceforge.net/Channel_Viewer_Protocol). If u have [PHP-ICE](http://mumble.sourceforge.net/Ice) on your server u can generate the [CVP](http://mumble.sourceforge.net/Channel_Viewer_Protocol) yourself. Some control panel/hosting have this already for u.
